@@ -1,7 +1,7 @@
 {
-  "openweather_api_key": "736a03e3a7c6f1b387dde9fc3e377fc5",
-  "telegram_bot_token": "7204662701:AAHUtd-aDbum8gymLGG9scfiGomCRK6es3g",
-  "telegram_chat_id": "7412131329",
+  "openweather_api_key": "",
+  "telegram_bot_token": "",
+  "telegram_chat_id": ",
   "system_prompt": "Du bist Pia, eine freundliche Assistentin. Antworte in maximal 2–3 kurzen Sätzen auf Deutsch.",
   "pin": "1204",
   "default_user": "jan"
