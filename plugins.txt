@@ -1,0 +1,43 @@
+
+---
+
+### 📁 `plugins/README.md`
+
+```markdown
+# PIA 5 – Plugins
+
+Dieser Ordner enthält alle Module von PIA 5. Jedes Plugin ist eine eigenständige `.py`-Datei mit einer `register(core)`-Funktion.
+
+## Übersicht
+
+| Plugin | Beschreibung | Befehle |
+|--------|--------------|---------|
+| `memory_plugin.py` | Persönliches Gedächtnis (RAG) | `merke`, `suche`, `liste`, `vergiss`, `was denkst du` |
+| `intent_plugin.py` | Absichtserkennung (Keyword + semantisch) | `intents`, `trainiere`, `vergiss` |
+| `behavior_plugin.py` | Verhaltensanalyse & Lernmodus | `analysiere`, `modus`, `status` |
+| `proactive_plugin.py` | Proaktive Vorschläge | `vorschläge`, `analyse` |
+| `routines_plugin.py` | Zeit-/Sprachgesteuerte Routinen | `routine`, `scheduler` |
+| `shopping_plugin.py` | Einkaufsliste | `einkaufsliste`, `lösche`, `erledigt` |
+| `calendar_plugin.py` | Kalender & Erinnerungen | `termin`, `erinnerung` |
+| `tapo_plugin.py` | Smart Home (Tapo) | `licht`, `ventilator`, `kaffeemaschine`, `helligkeit`, `farbe` |
+| `weather_plugin.py` | Wetter (heute/morgen/übermorgen) | `wetter` |
+| `clock_plugin.py` | Uhrzeit & Datum | `uhrzeit`, `datum`, `wochentag` |
+| `push_plugin.py` | Telegram-Pushes | `push`, `erinnerung`, `tägliche zusammenfassung` |
+| `alarm_plugin.py` | Timer & Wecker | `alarm`, `timer`, `erinnere mich` |
+| `daily_plugin.py` | Tägliche Übersicht | `daily`, `heute`, `übersicht` |
+| `agentic_plugin.py` | (Optional) Agentic-Modus | `agentic`, `lernmodus` |
+
+## Entwicklung eines neuen Plugins
+
+```python
+# plugins/mein_plugin.py
+
+def register(core):
+    core.register_command(
+        ["mein_befehl"],
+        handle_mein_befehl,
+        "Kurze Beschreibung"
+    )
+
+def handle_mein_befehl(befehl):
+    return "Antwort von meinem Plugin"
