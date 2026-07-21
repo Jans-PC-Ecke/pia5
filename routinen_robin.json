@@ -1,0 +1,17 @@
+{
+  "routinen": [
+    {
+      "id": 1,
+      "name": "1",
+      "trigger": "sprache",
+      "trigger_text": "lan",
+      "trigger_zeit": "",
+      "trigger_wochentage": [],
+      "aktionen": [
+        "licht an"
+      ],
+      "aktiv": true,
+      "created": "2026-07-18 23:49:23"
+    }
+  ]
+}

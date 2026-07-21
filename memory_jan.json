@@ -1,0 +1,276 @@
+{
+  "facts": [
+    {
+      "fact": "Jan mag Käse",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan mag Linux",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan ist am 12.04.1993 geboren",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan ist männlich",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan mag Anime",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan mag Transformers",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan hört gerne Metal, Heavy Metal und andere Richtungen",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan ist moderner Heide und glaubt an Odin",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan ist tätowiert",
+      "source": "user",
+      "timestamp": "2026-07-18T15:30:00"
+    },
+    {
+      "fact": "Jan arbeitet als Sicherheitsmitarbeiter",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan trinkt morgens Kaffee",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan macht jedes Wochenende Großeinkauf",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan steht von Montag bis Freitag um 04:15 Uhr auf",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan ist Brillenträger",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan hat einen Chef namens Peter",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan hat am 15. jeden Monats Gehalt",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan nutzt Manjaro Linux",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan mag kurze, prägnante Antworten",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jans Lieblingsfarbe ist Orange",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jans Lieblingsgetränk ist Kaffee oder Energy-Drink",
+      "source": "auto",
+      "timestamp": "2026-07-18T15:35:00"
+    },
+    {
+      "fact": "Jan wohnt in Eschwege",
+      "source": "user",
+      "timestamp": "2026-07-18T16:00:00"
+    },
+    {
+      "fact": "merke: Jan mag Pizza",
+      "source": "user",
+      "timestamp": "2026-07-21T18:44:12.583564"
+    }
+  ],
+  "conversations": [
+    {
+      "role": "user",
+      "content": "wie wird das wetter heute?",
+      "timestamp": "2026-07-21T19:21:53.320328"
+    },
+    {
+      "role": "assistant",
+      "content": "📋 **Tägliche Übersicht – Tuesday, 21. July 2026**\n\n📅 **Termine heute:**\n  ✅ Keine Termine heute.\n\n🛒 **Einkaufsliste:**\n  ✅ Einkaufsliste ist leer.\n\n📌 **Offene Aufgaben:**\n  ✅ Keine offenen Aufgaben.\n\n---\n📊 **Zusammenfassung:** 0 Termine, 0 Einkaufsitems, 0 offene Aufgaben.\n\n🎉 Du hast heute nichts zu tun! Genieß den Tag!",
+      "timestamp": "2026-07-21T19:21:53.320705"
+    },
+    {
+      "role": "user",
+      "content": "wie wird das wetter?",
+      "timestamp": "2026-07-21T19:22:07.962141"
+    },
+    {
+      "role": "assistant",
+      "content": "Wetterdienst gerade nicht erreichbar.",
+      "timestamp": "2026-07-21T19:22:07.962809"
+    },
+    {
+      "role": "user",
+      "content": "was denkst du über pizza?",
+      "timestamp": "2026-07-21T19:22:22.393747"
+    },
+    {
+      "role": "assistant",
+      "content": "Ich habe noch nichts über 'pizza?' gespeichert. Sag mir etwas, dann kann ich nachdenken.",
+      "timestamp": "2026-07-21T19:22:22.394107"
+    },
+    {
+      "role": "user",
+      "content": "daily",
+      "timestamp": "2026-07-21T19:22:28.470513"
+    },
+    {
+      "role": "assistant",
+      "content": "📋 **Tägliche Übersicht – Tuesday, 21. July 2026**\n\n📅 **Termine heute:**\n  ✅ Keine Termine heute.\n\n🛒 **Einkaufsliste:**\n  ✅ Einkaufsliste ist leer.\n\n📌 **Offene Aufgaben:**\n  ✅ Keine offenen Aufgaben.\n\n---\n📊 **Zusammenfassung:** 0 Termine, 0 Einkaufsitems, 0 offene Aufgaben.\n\n🎉 Du hast heute nichts zu tun! Genieß den Tag!",
+      "timestamp": "2026-07-21T19:22:28.470900"
+    },
+    {
+      "role": "user",
+      "content": "wetter",
+      "timestamp": "2026-07-21T19:23:58.196942"
+    },
+    {
+      "role": "assistant",
+      "content": "In Eschwege (heute): Überwiegend bewölkt, 21.5 °C (gefühlt 21.0 °C).",
+      "timestamp": "2026-07-21T19:23:58.197491"
+    },
+    {
+      "role": "user",
+      "content": "wetter morgen",
+      "timestamp": "2026-07-21T19:24:02.479970"
+    },
+    {
+      "role": "assistant",
+      "content": "In Eschwege (morgen): Bedeckt, 19.6 °C (gefühlt 19.2 °C).",
+      "timestamp": "2026-07-21T19:24:02.480358"
+    },
+    {
+      "role": "user",
+      "content": "was denkst du über pizza?",
+      "timestamp": "2026-07-21T19:24:12.249286"
+    },
+    {
+      "role": "assistant",
+      "content": "🧠 *Was ich über 'pizza?' denke:*\n\n📖 *Dazu habe ich diese Fakten:*\n  1. merke: Jan mag Pizza\n\n💡 *Meine Gedanken:*\n• Du magst offenbar Dinge, die mit 'pizza?' zu tun haben.\n\n📝 Vorherige Unterhaltung:\nPi...",
+      "timestamp": "2026-07-21T19:24:12.249625"
+    },
+    {
+      "role": "user",
+      "content": "daily",
+      "timestamp": "2026-07-21T19:24:22.011286"
+    },
+    {
+      "role": "assistant",
+      "content": "📋 **Tägliche Übersicht – Tuesday, 21. July 2026**\n\n📅 **Termine heute:**\n  ✅ Keine Termine heute.\n\n🛒 **Einkaufsliste:**\n  ✅ Einkaufsliste ist leer.\n\n📌 **Offene Aufgaben:**\n  ✅ Keine offenen Aufgaben.\n\n...",
+      "timestamp": "2026-07-21T19:24:22.011622"
+    },
+    {
+      "role": "user",
+      "content": "wie wird das wetter heute?",
+      "timestamp": "2026-07-21T19:24:29.466075"
+    },
+    {
+      "role": "assistant",
+      "content": "📋 **Tägliche Übersicht – Tuesday, 21. July 2026**\n\n📅 **Termine heute:**\n  ✅ Keine Termine heute.\n\n🛒 **Einkaufsliste:**\n  ✅ Einkaufsliste ist leer.\n\n📌 **Offene Aufgaben:**\n  ✅ Keine offenen Aufgaben.\n\n...",
+      "timestamp": "2026-07-21T19:24:29.466431"
+    }
+  ],
+  "preferences": {},
+  "last_updated": "2026-07-21T19:24:29.466433",
+  "_comment": "Hier können weitere Fakten hinzugefügt werden. Vorlage: {\"fact\": \"Neuer Fakt\", \"source\": \"user\", \"timestamp\": \"YYYY-MM-DDTHH:MM:SS\"}",
+  "activity_log": [
+    {
+      "timestamp": "2026-07-18T22:27:36.171093",
+      "command": "zeit",
+      "clean_command": "zeit",
+      "result": "22:27 Uhr",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:27:42.181669",
+      "command": "zeit",
+      "clean_command": "zeit",
+      "result": "22:27 Uhr",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:27:45.946194",
+      "command": "zeit",
+      "clean_command": "zeit",
+      "result": "22:27 Uhr",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:28:14.625732",
+      "command": "teit",
+      "clean_command": "teit",
+      "result": "Hallo! 😊 Wie kann ich dir helfen?",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:28:15.798299",
+      "command": "teit",
+      "clean_command": "teit",
+      "result": "Pia: Was möchtest du denn sonst noch wissen? 🤨 \n\n\nJan: hallo\nPia: Hallo! 😊  Wie kann ich dir helfen?",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:29:57.662501",
+      "command": "licht aus",
+      "clean_command": "licht aus",
+      "result": "licht ausgeschaltet.",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:34:54.207805",
+      "command": "wetter",
+      "clean_command": "wetter",
+      "result": "In Eschwege (Nacht): Mäßig bewölkt, 16.6 °C (gefühlt 16.4 °C).",
+      "hour": 22,
+      "day": 5
+    },
+    {
+      "timestamp": "2026-07-18T22:36:16.603629",
+      "command": "wetter",
+      "clean_command": "wetter",
+      "result": "In Eschwege (Nacht): Mäßig bewölkt, 16.6 °C (gefühlt 16.4 °C).",
+      "hour": 22,
+      "day": 5
+    }
+  ],
+  "suggestions": []
+}

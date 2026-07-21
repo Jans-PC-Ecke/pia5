@@ -1,0 +1,25 @@
+{
+  "users": {
+    "jan": {
+      "pin": "1204",
+      "role": "admin",
+      "sprache": "de",
+      "antwort_stil": "frech_direkt",
+      "created": "2026-07-18T17:00:00"
+    },
+    "julia": {
+      "pin": "5678",
+      "role": "user",
+      "sprache": "de",
+      "antwort_stil": "freundlich",
+      "created": "2026-07-18T17:10:00"
+    },
+    "robin": {
+      "pin": "9012",
+      "role": "user",
+      "sprache": "de",
+      "antwort_stil": "freundlich",
+      "created": "2026-07-18T17:10:00"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "routinen": [
+    {
+      "id": 4,
+      "name": "Wochenend-Aus",
+      "trigger": "zeit",
+      "trigger_text": "",
+      "trigger_zeit": "13:00",
+      "trigger_wochentage": [
+        "sa",
+        "so"
+      ],
+      "aktionen": [
+        "licht aus",
+        "ventilator aus"
+      ],
+      "aktiv": true,
+      "created": "2026-07-19 12:00:00"
+    },
+    {
+      "id": 6,
+      "name": "Gute-Nacht-Wochenende",
+      "trigger": "sprache",
+      "trigger_text": "gute nacht",
+      "trigger_zeit": "",
+      "trigger_wochentage": [],
+      "aktionen": [
+        "licht aus",
+        "ventilator aus",
+        "wetter"
+      ],
+      "aktiv": true,
+      "created": "2026-07-19 12:00:00"
+    },
+    {
+      "id": 7,
+      "name": "Alles-aus",
+      "trigger": "sprache",
+      "trigger_text": "alles ausschalten",
+      "trigger_zeit": "",
+      "trigger_wochentage": [],
+      "aktionen": [
+        "licht aus",
+        "ventilator aus",
+        "kaffeemaschine aus"
+      ],
+      "aktiv": true,
+      "created": "2026-07-19 12:00:00"
+    },
+    {
+      "id": 9,
+      "name": "Guten Morgen Wochenende",
+      "trigger": "zeit",
+      "trigger_text": "",
+      "trigger_zeit": "12:00",
+      "trigger_wochentage": [
+        "sa",
+        "so"
+      ],
+      "aktionen": [
+        "licht an",
+        "wetter",
+        "ventilator an"
+      ],
+      "aktiv": true,
+      "created": "2026-07-21 06:37:42"
+    },
+    {
+      "id": 10,
+      "name": "Frühschicht",
+      "trigger": "zeit",
+      "trigger_text": "",
+      "trigger_zeit": "04:00",
+      "trigger_wochentage": [
+        "mo",
+        "di",
+        "mi",
+        "do",
+        "fr"
+      ],
+      "aktionen": [
+        "licht an",
+        "kaffeemaschine an",
+        "wetter",
+        "ventilator an"
+      ],
+      "aktiv": true,
+      "created": "2026-07-21 06:38:59"
+    },
+    {
+      "id": 11,
+      "name": "Frühschicht aus",
+      "trigger": "zeit",
+      "trigger_text": "",
+      "trigger_zeit": "05:00",
+      "trigger_wochentage": [
+        "mo",
+        "di",
+        "mi",
+        "do",
+        "fr"
+      ],
+      "aktionen": [
+        "licht aus",
+        "ventilator aus",
+        "kaffeemaschine aus"
+      ],
+      "aktiv": true,
+      "created": "2026-07-21 06:39:57"
+    },
+    {
+      "id": 12,
+      "name": "Gute Nacht Wochentag",
+      "trigger": "zeit",
+      "trigger_text": "",
+      "trigger_zeit": "22:00",
+      "trigger_wochentage": [
+        "mo",
+        "di",
+        "mi",
+        "do",
+        "fr"
+      ],
+      "aktionen": [
+        "licht aus",
+        "ventilator aus",
+        "wetter"
+      ],
+      "aktiv": true,
+      "created": "2026-07-21 06:40:57"
+    }
+  ]
+}

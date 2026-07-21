@@ -1,0 +1,16 @@
+# Pia5 – Minimal für RAG (kein LLM, keine Spracherkennung)
+
+# Web & HTTP
+flask>=3.0.0
+requests>=2.31.0
+
+# Smart Home (Tapo)
+tapo>=0.8.0
+
+# Text-to-Speech (Browser wird genutzt, aber gTTS als Fallback)
+gtts>=2.5.0
+
+# Vektorspeicher & Embeddings (für persönliches Gedächtnis)
+chromadb>=1.5.0
+sentence-transformers>=2.0.0
+numpy>=1.24.0

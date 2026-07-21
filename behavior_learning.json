@@ -1,0 +1,40 @@
+{
+  "accepted": [
+    {
+      "suggestion": {
+        "type": "zeit",
+        "hour": "22:00",
+        "command": "zeit",
+        "count": 3,
+        "weekdays": [
+          "sa"
+        ],
+        "total": 8,
+        "suggestion": "Um 22:00 Uhr machst du oft 'zeit'",
+        "routine_name": "Auto_zeit_2200"
+      },
+      "timestamp": "2026-07-21T12:41:48.421679"
+    }
+  ],
+  "rejected": [],
+  "auto_mode": false,
+  "last_analysis": null,
+  "pending": [
+    {
+      "type": "tag",
+      "day": "Samstag",
+      "period": "nacht",
+      "command": "zeit",
+      "count": 3,
+      "suggestion": "Jeden Samstag nacht machst du oft 'zeit'",
+      "routine_name": "Auto_zeit_Samstag_nacht"
+    },
+    {
+      "type": "sequenz",
+      "sequence": "zeit → zeit",
+      "count": 2,
+      "suggestion": "Du machst oft 'zeit → zeit' hintereinander",
+      "routine_name": "Auto_Sequenz_zeit_zeit"
+    }
+  ]
+}
