@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P.I.A. 5</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.light-mode {
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        h1 {
+            color: #fb923c;
+            font-size: 2.2rem;
+            margin-bottom: 24px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        h1 span { color: #f97316; }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #1e293b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #334155;
+        }
+        body.light-mode .user-header {
+            background: #e2e8f0;
+            border-color: #cbd5e1;
+        }
+        .user-header .label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        .user-header .user-name {
+            color: #fb923c;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .user-header .theme-toggle {
+            background: none;
+            border: 1px solid #334155;
+            color: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        body.light-mode .user-header .theme-toggle {
+            border-color: #94a3b8;
+            color: #0f172a;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            border: 1px solid #334155;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        body.light-mode .card {
+            background: #ffffff;
+            border-color: #e2e8f0;
+        }
+        .card h2 {
+            font-size: 1.2rem;
+            color: #fb923c;
+            margin-bottom: 14px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        body.light-mode .card h2 {
+            border-bottom-color: #e2e8f0;
+        }
+        .card h2 .badge {
+            font-size: 0.7rem;
+            background: #f97316;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            margin-left: auto;
+        }
+
+        .device-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 14px;
+        }
+        .device-card {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 14px 12px;
+            text-align: center;
+            border: 1px solid #334155;
+            transition: border-color 0.2s;
+        }
+        body.light-mode .device-card {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        .device-card:hover { border-color: #f97316; }
+        .device-card h3 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            color: #f1f5f9;
+        }
+        body.light-mode .device-card h3 { color: #0f172a; }
+        .device-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 6px 0;
+            font-size: 0.9rem;
+        }
+        .status-indicator {
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        .status-indicator.on { color: #22c55e; }
+        .status-indicator.off { color: #ef4444; }
+        .status-indicator.unknown { color: #64748b; }
+        .btn-group {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 5px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: white;
+            white-space: nowrap;
+        }
+        .btn-primary { background: #f97316; }
+        .btn-primary:hover { background: #ea580c; transform: scale(1.03); }
+
+        .btn-success { background: #16a34a; }
+        .btn-success:hover { background: #15803d; transform: scale(1.03); }
+
+        .btn-danger { background: #dc2626; }
+        .btn-danger:hover { background: #b91c1c; transform: scale(1.03); }
+
+        .btn-danger.active {
+            background: #dc2626;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .rgb-control {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #0f172a;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+        body.light-mode .rgb-control {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        .rgb-slider-group {
+            flex: 1;
+            min-width: 200px;
+        }
+        .rgb-slider-group .slider-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        .rgb-slider-group .slider-row span {
+            font-weight: bold;
+            width: 16px;
+        }
+        .rgb-slider-group input[type="range"] {
+            flex: 1;
+            accent-color: #f97316;
+        }
+        .rgb-preview {
+            width: 60px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid #334155;
+        }
+        body.light-mode .rgb-preview { border-color: #e2e8f0; }
+
+        .routine-item {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-left: 3px solid #f97316;
+        }
+        body.light-mode .routine-item {
+            background: #f8fafc;
+        }
+        .routine-item .name {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        body.light-mode .routine-item .name { color: #0f172a; }
+        .routine-item .meta {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .routine-item .actions {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .shopping-item {
+            background: #0f172a;
+            border-radius: 6px;
+            padding: 6px 10px;
+            margin-bottom: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 3px solid #16a34a;
+        }
+        body.light-mode .shopping-item {
+            background: #f8fafc;
+        }
+        .shopping-item .name {
+            font-size: 0.9rem;
+        }
+        .shopping-item .quantity {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-left: 6px;
+        }
+        .shopping-item .actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .month-appointment {
+            border-left: 3px solid #fb923c;
+            padding: 4px 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            background: #0f172a;
+        }
+        body.light-mode .month-appointment {
+            background: #f8fafc;
+        }
+        .month-appointment.erledigt {
+            border-left-color: #22c55e;
+            opacity: 0.6;
+        }
+        .month-appointment.erinnerung {
+            border-left-color: #3b82f6;
+        }
+        .month-appointment.heute {
+            background: rgba(251, 146, 60, 0.15);
+        }
+        body.light-mode .month-appointment.heute {
+            background: rgba(251, 146, 60, 0.08);
+        }
+        .month-appointment .date-tag {
+            font-size: 0.7rem;
+            color: #94a3b8;
+        }
+        .month-appointment .btn-sm {
+            font-size: 0.6rem;
+            padding: 1px 6px;
+        }
+
+        .suggestion-item {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            border-left: 3px solid #3b82f6;
+        }
+        body.light-mode .suggestion-item {
+            background: #f8fafc;
+        }
+        .suggestion-item .name {
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+        body.light-mode .suggestion-item .name { color: #0f172a; }
+        .suggestion-item .meta {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        .suggestion-item .actions {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .chat-area { grid-column: 1 / -1; margin-top: 10px; }
+        .chat-messages {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 14px;
+            height: 220px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            border: 1px solid #334155;
+        }
+        body.light-mode .chat-messages {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        .chat-messages .pia { color: #fb923c; }
+        .chat-messages .user { color: #60a5fa; }
+        .chat-messages .system { color: #fbbf24; }
+        body.light-mode .chat-messages .pia { color: #ea580c; }
+        body.light-mode .chat-messages .user { color: #2563eb; }
+        body.light-mode .chat-messages .system { color: #d97706; }
+        .chat-input {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            min-width: 150px;
+        }
+        body.light-mode .chat-input input {
+            background: #ffffff;
+            color: #0f172a;
+            border-color: #e2e8f0;
+        }
+        .chat-input input:focus { outline: none; border-color: #f97316; }
+        .chat-input .btn {
+            padding: 10px 18px;
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .status-badge.running { background: #16a34a; color: white; }
+        .status-badge.stopped { background: #dc2626; color: white; }
+        .status-badge.unknown { background: #64748b; color: white; }
+
+        .color-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .color-btn:hover { transform: scale(1.15); border-color: #f97316; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal-content {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid #334155;
+        }
+        body.light-mode .modal-content {
+            background: #ffffff;
+            border-color: #e2e8f0;
+        }
+        .modal-content h2 {
+            color: #fb923c;
+            margin-bottom: 16px;
+        }
+        .modal-content input, .modal-content select, .modal-content textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 6px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+        }
+        body.light-mode .modal-content input,
+        body.light-mode .modal-content select,
+        body.light-mode .modal-content textarea {
+            background: #ffffff;
+            color: #0f172a;
+            border-color: #e2e8f0;
+        }
+        .modal-content textarea { height: 60px; }
+        .modal-content .btn-group {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .wochentage-checkbox-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+        .wochentage-checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span>P.I.A. 5</span></h1>
+
+        <!-- Header -->
+        <div class="user-header">
+            <span class="label">Eingeloggt als:</span>
+            <span class="user-name" id="currentUserDisplay">{{ current_user or 'jan' }}</span>
+            <button class="theme-toggle" onclick="toggleTheme()">Dunkel/Hell</button>
+        </div>
+
+        <div class="main-grid">
+            <!-- Smart Home -->
+            <div class="card">
+                <h2>Smart Home</h2>
+                <div class="device-grid" id="deviceGrid"></div>
+                <div style="margin-top:14px;">
+                    <h3 style="font-size:0.9rem; margin-bottom:6px; color:#fb923c;">RGB-Farbsteuerung</h3>
+                    <div class="rgb-control">
+                        <input type="color" id="rgbColorPicker" value="#ff6600" style="width:50px; height:50px; border:none; border-radius:8px; cursor:pointer; background:transparent;">
+                        <div class="rgb-slider-group">
+                            <div class="slider-row">
+                                <span style="color:#ef4444;">R</span>
+                                <input type="range" id="rSlider" min="0" max="255" value="255">
+                                <span id="rValue" style="color:#94a3b8; min-width:30px; text-align:right;">255</span>
+                            </div>
+                            <div class="slider-row">
+                                <span style="color:#22c55e;">G</span>
+                                <input type="range" id="gSlider" min="0" max="255" value="102">
+                                <span id="gValue" style="color:#94a3b8; min-width:30px; text-align:right;">102</span>
+                            </div>
+                            <div class="slider-row">
+                                <span style="color:#3b82f6;">B</span>
+                                <input type="range" id="bSlider" min="0" max="255" value="0">
+                                <span id="bValue" style="color:#94a3b8; min-width:30px; text-align:right;">0</span>
+                            </div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:6px; align-items:center;">
+                            <div id="colorPreview" class="rgb-preview" style="background:#ff6600;"></div>
+                            <button class="btn btn-primary" onclick="sendRgbFromSliders()" style="font-size:0.75rem; padding:4px 12px;">Farbe setzen</button>
+                        </div>
+                    </div>
+                    <div style="margin-top:8px;">
+                        <div style="display:flex; gap:4px; flex-wrap:wrap; align-items:center;">
+                            <span style="font-size:0.8rem; color:#94a3b8;">Schnellfarben:</span>
+                            <div id="quickColorsContainer" style="display:flex; gap:4px; flex-wrap:wrap;"></div>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap;">
+                        <label style="font-size:0.85rem; color:#94a3b8;">Helligkeit:</label>
+                        <input type="range" id="brightnessSlider" min="1" max="100" value="100" style="flex:1; max-width:200px; accent-color:#f97316;">
+                        <span id="brightnessValue" style="color:#94a3b8; min-width:40px;">100%</span>
+                        <button class="btn btn-primary" onclick="sendBrightness()" style="font-size:0.75rem; padding:4px 12px;">Anwenden</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kalender -->
+            <div class="card">
+                <h2>Kalender</h2>
+                <div style="margin-bottom:12px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="color:#94a3b8; font-size:0.9rem;">Heute</span>
+                        <button class="btn btn-primary" onclick="loadCalendarToday()" style="font-size:0.7rem; padding:2px 10px;">Aktualisieren</button>
+                    </div>
+                    <div id="calendarToday" style="background:#0f172a; padding:8px 12px; border-radius:8px; font-size:0.9rem; min-height:40px;">Lade...</div>
+                </div>
+                <hr style="border-color:#334155; margin:8px 0;">
+                <div>
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="color:#94a3b8; font-size:0.9rem;">Monatsübersicht</span>
+                        <div style="display:flex; gap:4px; align-items:center;">
+                            <button class="btn btn-primary" onclick="changeMonth(-1)" style="font-size:0.7rem; padding:2px 8px;">Vor</button>
+                            <span id="monthYearDisplay" style="color:#e2e8f0; font-weight:bold; min-width:100px; text-align:center;">Juli 2026</span>
+                            <button class="btn btn-primary" onclick="changeMonth(1)" style="font-size:0.7rem; padding:2px 8px;">Zurück</button>
+                            <button class="btn btn-primary" onclick="loadMonthView()" style="font-size:0.7rem; padding:2px 10px;">Aktualisieren</button>
+                            <button class="btn btn-primary" onclick="resetToToday()" style="font-size:0.7rem; padding:2px 8px;">Heute</button>
+                        </div>
+                    </div>
+                    <div id="monthAppointments" style="background:#0f172a; padding:8px 12px; border-radius:8px; font-size:0.85rem; max-height:300px; overflow-y:auto; min-height:60px;">
+                        Lade Monatsansicht...
+                    </div>
+                </div>
+                <hr style="border-color:#334155; margin:12px 0;">
+                <h3 style="font-size:0.9rem; color:#fb923c;">Neu</h3>
+                <input type="text" id="calTitel" placeholder="Titel" style="width:100%; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white; margin-bottom:6px;">
+                <div style="display:flex; gap:8px;">
+                    <input type="date" id="calDatum" style="flex:1; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white;">
+                    <input type="time" id="calUhrzeit" value="08:00" style="flex:1; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white;">
+                </div>
+                <input type="text" id="calOrt" placeholder="Ort (optional)" style="width:100%; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white; margin:6px 0;">
+                <label style="font-size:0.85rem; color:#94a3b8;">
+                    <input type="checkbox" id="calIsErinnerung"> Als Erinnerung (kein Ort)
+                </label>
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                    <button class="btn btn-primary" onclick="addCalendarEntry()">Speichern</button>
+                    <button class="btn btn-primary" onclick="loadCalendarToday(); loadMonthView();">Aktualisieren</button>
+                </div>
+            </div>
+
+            <!-- Routinen -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h2>Routinen <span class="badge" id="schedulerStatusBadge">läuft</span></h2>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; align-items:center;">
+                    <button class="btn btn-primary" onclick="loadRoutines()">Aktualisieren</button>
+                    <button class="btn btn-primary" onclick="schedulerStart()">Scheduler starten</button>
+                    <button class="btn btn-danger" onclick="schedulerStop()">Scheduler stoppen</button>
+                </div>
+                <div id="routineList">Lade Routinen...</div>
+                <hr style="border-color:#334155; margin:14px 0;">
+                <h3 style="font-size:0.9rem; color:#fb923c;">Routine hinzufügen</h3>
+                <div style="display:flex; gap:8px; margin-bottom:12px; align-items:center; flex-wrap:wrap;">
+                    <input type="text" id="routineCommandInput" placeholder="z.B. routine Test zeit 12:00 wochentage mo di | sag Hallo | licht an" style="flex:3; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white;">
+                    <button class="btn btn-primary" onclick="parseRoutineCommand()" style="white-space:nowrap;">Befehl parsen</button>
+                </div>
+                <input type="text" id="routineName" placeholder="Name (z.B. Guten Morgen)" style="width:100%; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white; margin-bottom:6px;">
+                <div style="display:flex; gap:8px;">
+                    <select id="routineTrigger" style="flex:1; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white;">
+                        <option value="sprache">Sprache</option>
+                        <option value="zeit">Zeit</option>
+                    </select>
+                    <input type="text" id="routineTriggerWert" placeholder="z.B. guten morgen oder 07:00" style="flex:2; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white;">
+                </div>
+                <input type="text" id="routineAktionen" placeholder="Aktionen mit | trennen (z.B. licht an | kaffee an | wetter)" style="width:100%; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white; margin:6px 0;">
+                <div style="margin:6px 0;">
+                    <label style="font-size:0.85rem; color:#94a3b8; display:block; margin-bottom:4px;">Wochentage (optional):</label>
+                    <div class="wochentage-checkbox-group">
+                        <label><input type="checkbox" class="wochentag" value="mo"> Mo</label>
+                        <label><input type="checkbox" class="wochentag" value="di"> Di</label>
+                        <label><input type="checkbox" class="wochentag" value="mi"> Mi</label>
+                        <label><input type="checkbox" class="wochentag" value="do"> Do</label>
+                        <label><input type="checkbox" class="wochentag" value="fr"> Fr</label>
+                        <label><input type="checkbox" class="wochentag" value="sa"> Sa</label>
+                        <label><input type="checkbox" class="wochentag" value="so"> So</label>
+                    </div>
+                </div>
+                <button class="btn btn-success" onclick="addRoutine()">Routine hinzufügen</button>
+            </div>
+
+            <!-- Proaktiv -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h2>Proaktive Intelligenz</h2>
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px;">
+                    <button class="btn btn-primary" onclick="analyzeProactive()">Analyse starten</button>
+                    <button class="btn btn-primary" onclick="loadSuggestions()">Vorschläge laden</button>
+                </div>
+                <div id="suggestionList" style="max-height:300px; overflow-y:auto;">
+                    Keine Vorschläge – führe eine Analyse durch!
+                </div>
+            </div>
+
+            <!-- Einkaufsliste -->
+            <div class="card">
+                <h2>Einkaufsliste</h2>
+                <div id="shoppingList">Lade...</div>
+                <hr style="border-color:#334155; margin:12px 0;">
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <input type="text" id="shoppingItemInput" placeholder="2x Milch oder 3 Eier..." style="flex:2; padding:8px; border-radius:6px; border:1px solid #334155; background:#0f172a; color:white;">
+                    <button class="btn btn-success" onclick="addShoppingItem()">Hinzufügen</button>
+                    <button class="btn btn-danger" onclick="clearShoppingList()">Leeren</button>
+                    <button class="btn btn-primary" onclick="loadShoppingList()">Aktualisieren</button>
+                </div>
+            </div>
+
+            <!-- Chat + Always Listening -->
+            <div class="card chat-area">
+                <h2>Eingabe</h2>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="system">Hallo! Sag "Hey Pia" + Befehl oder klicke auf Mikrofon.</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="commandInput" placeholder="Befehl eingeben..." onkeydown="if(event.key==='Enter') sendCommand()">
+                    <button class="btn btn-primary" onclick="sendCommand()">Senden</button>
+                    <button id="micBtn" class="btn btn-primary" onclick="startBrowserSpeech()">Mikrofon</button>
+                    <button id="alwaysListeningBtn" class="btn btn-primary" onclick="startAlwaysListening()">Always Listening</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── MODAL BEARBEITEN ─── -->
+    <div id="editRoutineModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Routine bearbeiten</h2>
+            <input type="hidden" id="editRoutineId">
+            <input type="text" id="editRoutineName" placeholder="Name">
+            <select id="editRoutineTrigger">
+                <option value="sprache">Sprache</option>
+                <option value="zeit">Zeit</option>
+            </select>
+            <input type="text" id="editRoutineTriggerWert" placeholder="z.B. guten morgen oder 07:00">
+            <textarea id="editRoutineAktionen" placeholder="Aktionen mit | trennen"></textarea>
+            <div style="margin:6px 0;">
+                <label style="color:#94a3b8;">Wochentage:</label>
+                <div class="wochentage-checkbox-group" id="editWochentageContainer">
+                    <label><input type="checkbox" class="edit-wochentag" value="mo"> Mo</label>
+                    <label><input type="checkbox" class="edit-wochentag" value="di"> Di</label>
+                    <label><input type="checkbox" class="edit-wochentag" value="mi"> Mi</label>
+                    <label><input type="checkbox" class="edit-wochentag" value="do"> Do</label>
+                    <label><input type="checkbox" class="edit-wochentag" value="fr"> Fr</label>
+                    <label><input type="checkbox" class="edit-wochentag" value="sa"> Sa</label>
+                    <label><input type="checkbox" class="edit-wochentag" value="so"> So</label>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="saveRoutineEdit()">Speichern</button>
+                <button class="btn btn-primary" onclick="closeEditModal()">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ─── THEME ───
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('pia5-theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+        if (localStorage.getItem('pia5-theme') === 'light') {
+            document.body.classList.add('light-mode');
+        }
+
+        // ─── GERÄTE ───
+        const deviceConfig = {
+            "licht": { name: "Licht" },
+            "ventilator": { name: "Ventilator" },
+            "kaffeemaschine": { name: "Kaffeemaschine" }
+        };
+
+        // ─── MONATSANSICHT ───
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        const monthNames = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+
+        function loadMonthView() {
+            const container = document.getElementById('monthAppointments');
+            container.innerHTML = 'Lade...';
+            fetch(`/api/calendar/month/${currentYear}/${currentMonth + 1}`)
+                .then(res => {
+                    if (res.status === 401) { window.location.href = '/login'; return null; }
+                    return res.json();
+                })
+                .then(data => {
+                    if (!data) return;
+                    document.getElementById('monthYearDisplay').textContent = `${monthNames[currentMonth]} ${currentYear}`;
+                    if (data.termine && data.termine.length > 0) {
+                        const grouped = {};
+                        const today = new Date().toISOString().split('T')[0];
+                        data.termine.forEach(t => {
+                            const key = t.datum;
+                            if (!grouped[key]) grouped[key] = [];
+                            grouped[key].push(t);
+                        });
+                        let html = '';
+                        const sortedDays = Object.keys(grouped).sort();
+                        sortedDays.forEach(day => {
+                            const dayTerms = grouped[day];
+                            const dateParts = day.split('-');
+                            const d = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                            const dayName = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'][d.getDay()];
+                            const isToday = day === today;
+                            html += `<div style="margin-top:6px; font-weight:bold; color:#fb923c; border-bottom:1px solid #334155; padding-bottom:2px;">${dayName}, ${day} ${isToday ? '(heute)' : ''}</div>`;
+                            dayTerms.forEach(t => {
+                                const statusIcon = t.erledigt ? '✓' : '○';
+                                const typClass = t.typ === 'erinnerung' ? 'erinnerung' : '';
+                                const erledigtClass = t.erledigt ? 'erledigt' : '';
+                                const heuteClass = isToday ? 'heute' : '';
+                                const ortText = t.ort ? ` (${t.ort})` : '';
+                                html += `<div class="month-appointment ${erledigtClass} ${typClass} ${heuteClass}">
+                                    <span>${statusIcon} ${t.uhrzeit} – ${t.titel}${ortText}</span>
+                                    <span class="date-tag">${t.typ}</span>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteCalendarEntry(${t.id})">Löschen</button>
+                                </div>`;
+                            });
+                        });
+                        container.innerHTML = html;
+                    } else {
+                        container.innerHTML = 'Keine Termine in diesem Monat.';
+                    }
+                })
+                .catch(err => {
+                    console.error('Monatsansicht Fehler:', err);
+                    container.innerHTML = 'Fehler beim Laden der Monatsansicht.';
+                });
+        }
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+            if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+            loadMonthView();
+        }
+
+        function resetToToday() {
+            const now = new Date();
+            currentYear = now.getFullYear();
+            currentMonth = now.getMonth();
+            loadMonthView();
+        }
+
+        // ─── USER ───
+        function updateUserDisplay() {
+            fetch('/api/user/current')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('currentUserDisplay').textContent = data.username || 'jan';
+                })
+                .catch(err => console.error('User-Anzeige Fehler:', err));
+        }
+
+        // ─── RGB ───
+        const quickColors = {
+            'Rot': [255,0,0], 'Grün': [0,255,0], 'Blau': [0,0,255],
+            'Gelb': [255,255,0], 'Orange': [255,165,0], 'Lila': [128,0,255],
+            'Weiß': [255,255,255], 'Warm': [255,180,80], 'Kalt': [80,180,255],
+            'Regenbogen': [255,0,255]
+        };
+
+        function renderQuickColors() {
+            const container = document.getElementById('quickColorsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            for (const [name, rgb] of Object.entries(quickColors)) {
+                const btn = document.createElement('button');
+                btn.className = 'color-btn';
+                btn.style.background = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
+                btn.title = name;
+                btn.onclick = () => setQuickColor(name);
+                container.appendChild(btn);
+            }
+        }
+
+        function setQuickColor(name) {
+            const rgb = quickColors[name];
+            if (!rgb) return;
+            document.getElementById('rSlider').value = rgb[0];
+            document.getElementById('gSlider').value = rgb[1];
+            document.getElementById('bSlider').value = rgb[2];
+            updateColorPreview();
+            sendRgbFromSliders();
+        }
+
+        function updateColorPreview() {
+            const r = parseInt(document.getElementById('rSlider').value);
+            const g = parseInt(document.getElementById('gSlider').value);
+            const b = parseInt(document.getElementById('bSlider').value);
+            document.getElementById('rValue').textContent = r;
+            document.getElementById('gValue').textContent = g;
+            document.getElementById('bValue').textContent = b;
+            document.getElementById('colorPreview').style.background = `rgb(${r},${g},${b})`;
+            const hex = '#' + [r,g,b].map(c => c.toString(16).padStart(2,'0')).join('');
+            document.getElementById('rgbColorPicker').value = hex;
+        }
+
+        function sendRgbFromSliders() {
+            const r = parseInt(document.getElementById('rSlider').value);
+            const g = parseInt(document.getElementById('gSlider').value);
+            const b = parseInt(document.getElementById('bSlider').value);
+            fetch('/api/tapo/licht/rgb', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ r, g, b })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const msg = data.antwort || 'RGB gesetzt';
+                addChatMessage('Pia', msg);
+                speakText(msg);
+                loadDeviceStatus();
+            })
+            .catch(err => {
+                console.error('RGB Fehler:', err);
+                addChatMessage('System', 'RGB-Fehler');
+            });
+        }
+
+        function sendBrightness() {
+            const value = parseInt(document.getElementById('brightnessSlider').value);
+            fetch('/api/tapo/licht/brightness/' + value, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Helligkeit gesetzt';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadDeviceStatus();
+                })
+                .catch(err => {
+                    console.error('Helligkeit Fehler:', err);
+                    addChatMessage('System', 'Helligkeit-Fehler');
+                });
+        }
+
+        // ─── SPEAKTEXT ───
+        function speakText(text) {
+            if (!text) return;
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.9;
+                utterance.pitch = 1.0;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ─── CHAT ───
+        function addChatMessage(sender, text) {
+            const chat = document.getElementById('chatMessages');
+            const msg = document.createElement('div');
+            msg.className = sender.toLowerCase();
+            msg.textContent = `${sender}: ${text}`;
+            chat.appendChild(msg);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        function sendCommand() {
+            const input = document.getElementById('commandInput');
+            const cmd = input.value.trim();
+            if (!cmd) return;
+            addChatMessage('User', cmd);
+            input.value = '';
+            fetch('/api/command', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ befehl: cmd })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.antwort) {
+                    addChatMessage('Pia', data.antwort);
+                    speakText(data.antwort);
+                    updateUserDisplay();
+                }
+            })
+            .catch(err => {
+                console.error('Fehler:', err);
+                addChatMessage('System', 'Fehler bei der Anfrage');
+            });
+        }
+
+        // ─── DEVICES ───
+        function loadDeviceStatus() {
+            fetch('/api/tapo/status')
+                .then(res => {
+                    if (res.status === 401) { window.location.href = '/login'; return null; }
+                    return res.json();
+                })
+                .then(data => {
+                    if (data && data.status) {
+                        const grid = document.getElementById('deviceGrid');
+                        grid.innerHTML = '';
+                        for (const [device, status] of Object.entries(data.status)) {
+                            const card = document.createElement('div');
+                            card.className = 'device-card';
+                            const config = deviceConfig[device] || { name: device };
+                            const statusText = status === true ? 'An' : status === false ? 'Aus' : '?';
+                            const statusClass = status === true ? 'on' : status === false ? 'off' : 'unknown';
+                            card.innerHTML = `
+                                <h3>${config.name}</h3>
+                                <div class="device-status">
+                                    <span class="status-indicator ${statusClass}">●</span>
+                                    <span>${statusText}</span>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-success" onclick="tapoAction('${device}', 'on')">An</button>
+                                    <button class="btn btn-danger" onclick="tapoAction('${device}', 'off')">Aus</button>
+                                </div>
+                            `;
+                            grid.appendChild(card);
+                        }
+                    } else {
+                        document.getElementById('deviceGrid').innerHTML = '<p style="color:#94a3b8;">Keine Geräte gefunden</p>';
+                    }
+                })
+                .catch(err => {
+                    console.error('Status-Fehler:', err);
+                    document.getElementById('deviceGrid').innerHTML = '<p style="color:#ef4444;">Fehler beim Laden</p>';
+                });
+        }
+
+        function tapoAction(device, action) {
+            fetch(`/api/tapo/${device}/${action}`, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Aktion ausgeführt';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadDeviceStatus();
+                })
+                .catch(err => {
+                    console.error('Fehler:', err);
+                    addChatMessage('System', 'Fehler bei der Aktion');
+                });
+        }
+
+        // ─── KALENDER ───
+        function loadCalendarToday() {
+            fetch('/api/calendar/today')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('calendarToday').innerHTML = data.termine || 'Keine Termine heute.';
+                })
+                .catch(err => {
+                    document.getElementById('calendarToday').innerHTML = 'Fehler beim Laden.';
+                });
+        }
+
+        function deleteCalendarEntry(id) {
+            if (!confirm('Termin wirklich löschen?')) return;
+            fetch(`/api/calendar/delete/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Termin gelöscht';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadMonthView();
+                    loadCalendarToday();
+                })
+                .catch(err => {
+                    console.error('Fehler:', err);
+                    addChatMessage('System', 'Fehler beim Löschen');
+                });
+        }
+
+        function addCalendarEntry() {
+            const titel = document.getElementById('calTitel').value.trim();
+            const datum = document.getElementById('calDatum').value;
+            const uhrzeit = document.getElementById('calUhrzeit').value || '08:00';
+            const ort = document.getElementById('calOrt').value.trim();
+            const isErinnerung = document.getElementById('calIsErinnerung').checked;
+            if (!titel || !datum) {
+                addChatMessage('System', 'Titel und Datum erforderlich.');
+                return;
+            }
+            const endpoint = isErinnerung ? '/api/calendar/erinnerung/add' : '/api/calendar/add';
+            const payload = isErinnerung ? { titel, datum, uhrzeit } : { titel, datum, uhrzeit, ort };
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                const msg = data.antwort || 'Eintrag gespeichert';
+                addChatMessage('Pia', msg);
+                speakText(msg);
+                loadCalendarToday();
+                loadMonthView();
+                document.getElementById('calTitel').value = '';
+                document.getElementById('calOrt').value = '';
+            })
+            .catch(err => {
+                console.error('Fehler:', err);
+                addChatMessage('System', 'Fehler beim Speichern');
+            });
+        }
+
+        // ─── EINKAUFSLISTE ───
+        function loadShoppingList() {
+            fetch('/api/shopping')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('shoppingList');
+                    const text = data.list || 'Einkaufsliste ist leer.';
+                    if (text.startsWith('Einkaufsliste:')) {
+                        const lines = text.split('\n').filter(line => line.trim() !== '');
+                        let html = '';
+                        lines.forEach(line => {
+                            const match = line.match(/^\s*-\s+(\d+)?\s*(\w+)?\s*(.+?)\s*\[ID:(\d+)\]/);
+                            if (match) {
+                                const menge = match[1] || '1';
+                                const einheit = match[2] || '';
+                                const name = match[3];
+                                const id = match[4];
+                                html += `
+                                    <div class="shopping-item">
+                                        <span class="name">${menge} ${einheit} ${name} <span class="quantity">[ID:${id}]</span></span>
+                                        <div class="actions">
+                                            <button class="btn btn-success" onclick="shoppingDone('${name}')">Erledigt</button>
+                                            <button class="btn btn-danger" onclick="shoppingRemove('${name}')">Löschen</button>
+                                        </div>
+                                    </div>
+                                `;
+                            } else {
+                                html += `<div class="shopping-item"><span class="name">${line}</span></div>`;
+                            }
+                        });
+                        container.innerHTML = html || 'Einkaufsliste ist leer.';
+                    } else {
+                        container.innerHTML = text;
+                    }
+                })
+                .catch(err => {
+                    console.error('Shopping-Fehler:', err);
+                    document.getElementById('shoppingList').innerHTML = 'Fehler beim Laden.';
+                });
+        }
+
+        function addShoppingItem() {
+            const input = document.getElementById('shoppingItemInput');
+            const item = input.value.trim();
+            if (!item) {
+                addChatMessage('System', 'Bitte einen Artikel eingeben, z.B. 2x Milch.');
+                return;
+            }
+            fetch('/api/shopping/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ item })
+            })
+            .then(res => res.json())
+            .then(data => {
+                const msg = data.antwort || 'Artikel hinzugefügt';
+                addChatMessage('Pia', msg);
+                speakText(msg);
+                input.value = '';
+                loadShoppingList();
+                updateUserDisplay();
+            })
+            .catch(err => {
+                console.error('Fehler:', err);
+                addChatMessage('System', 'Fehler beim Hinzufügen');
+            });
+        }
+
+        // ─── FIX: Routinen-Bearbeitung funktioniert jetzt ───
+        function loadRoutines() {
+            fetch('/api/routines')
+                .then(res => {
+                    if (res.status === 401) { window.location.href = '/login'; return null; }
+                    return res.json();
+                })
+                .then(data => {
+                    const list = document.getElementById('routineList');
+                    if (!data) return;
+                    if (data.error) {
+                        list.innerHTML = `Fehler: ${data.error}`;
+                        return;
+                    }
+                    if (data.raw && data.raw.length > 0) {
+                        let html = '';
+                        data.raw.forEach(r => {
+                            const status = r.aktiv ? 'Aktiv' : 'Pausiert';
+                            const wochentage = r.trigger_wochentage && r.trigger_wochentage.length > 0
+                                ? ' · ' + r.trigger_wochentage.join(', ')
+                                : '';
+                            const aktionenStr = r.aktionen ? r.aktionen.join(' | ') : '';
+                            const category = r.trigger === 'zeit' ? '[Zeit]' : '[Sprache]';
+
+                            // 🔥 SICHER mit JSON.stringify für jedes Feld
+                            const nameJson = JSON.stringify(r.name);
+                            const triggerWertJson = JSON.stringify(r.trigger_zeit || r.trigger_text || '');
+                            const aktionenJson = JSON.stringify(aktionenStr);
+                            const wochentageJson = JSON.stringify(r.trigger_wochentage || []);
+
+                            html += `
+                                <div class="routine-item">
+                                    <div class="name">${status} ${category} ${r.name}</div>
+                                    <div class="meta">ID ${r.id} · ${r.trigger} ${r.trigger_zeit || r.trigger_text || ''}${wochentage}</div>
+                                    <div class="meta">Aktionen: ${aktionenStr}</div>
+                                    <div class="actions">
+                                        <button class="btn btn-primary" onclick="runRoutine(${r.id})">Ausführen</button>
+                                        <button class="btn btn-primary" onclick="toggleRoutine(${r.id})">${r.aktiv ? 'Deaktivieren' : 'Aktivieren'}</button>
+                                        <button class="btn btn-primary" onclick="openEditModal(${r.id}, ${nameJson}, ${JSON.stringify(r.trigger)}, ${triggerWertJson}, ${aktionenJson}, ${wochentageJson})">Bearbeiten</button>
+                                        <button class="btn btn-danger" onclick="deleteRoutine(${r.id})">Löschen</button>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        list.innerHTML = html;
+                    } else {
+                        list.innerHTML = 'Keine Routinen vorhanden.';
+                    }
+                })
+                .catch(err => {
+                    console.error('Routines Fehler:', err);
+                    document.getElementById('routineList').innerHTML = 'Fehler beim Laden der Routinen.';
+                });
+        }
+
+        function openEditModal(routineId, name, trigger, triggerWert, aktionenString, wochentage) {
+            console.log('📝 Bearbeite Routine:', routineId, name);
+            document.getElementById('editRoutineId').value = routineId;
+            document.getElementById('editRoutineName').value = name;
+            document.getElementById('editRoutineTrigger').value = trigger || 'sprache';
+            document.getElementById('editRoutineTriggerWert').value = triggerWert || '';
+            document.getElementById('editRoutineAktionen').value = aktionenString || '';
+            
+            document.querySelectorAll('.edit-wochentag').forEach(cb => {
+                cb.checked = wochentage && wochentage.includes(cb.value);
+            });
+            
+            document.getElementById('editRoutineModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editRoutineModal').classList.remove('active');
+        }
+
+        function saveRoutineEdit() {
+            const id = parseInt(document.getElementById('editRoutineId').value);
+            const name = document.getElementById('editRoutineName').value.trim();
+            const trigger = document.getElementById('editRoutineTrigger').value;
+            const triggerWert = document.getElementById('editRoutineTriggerWert').value.trim();
+            const aktionenRaw = document.getElementById('editRoutineAktionen').value.trim();
+            const aktionen = aktionenRaw.split('|').map(s => s.trim()).filter(s => s.length > 0);
+            const wochentage = [];
+            document.querySelectorAll('.edit-wochentag:checked').forEach(cb => wochentage.push(cb.value));
+
+            if (!name) { addChatMessage('System', 'Bitte einen Namen eingeben.'); return; }
+            if (!triggerWert) { addChatMessage('System', 'Bitte einen Trigger-Wert eingeben.'); return; }
+            if (aktionen.length === 0) { addChatMessage('System', 'Bitte mindestens eine Aktion angeben (mit | getrennt).'); return; }
+
+            const payload = {
+                name, trigger, trigger_wert: triggerWert, aktionen,
+                wochentage: wochentage.length > 0 ? wochentage : null
+            };
+
+            fetch(`/api/routines/update/${id}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) { addChatMessage('System', 'Fehler: ' + data.error); return; }
+                const msg = data.antwort || 'Routine aktualisiert';
+                addChatMessage('Pia', msg);
+                speakText(msg);
+                closeEditModal();
+                loadRoutines();
+            })
+            .catch(err => {
+                console.error('Fehler:', err);
+                addChatMessage('System', 'Fehler beim Aktualisieren: ' + err.message);
+            });
+        }
+
+        function runRoutine(id) {
+            fetch(`/api/routines/run/${id}`, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Routine ausgeführt';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                })
+                .catch(err => {
+                    addChatMessage('System', 'Fehler beim Ausführen');
+                });
+        }
+
+        function toggleRoutine(id) {
+            fetch(`/api/routines/toggle/${id}`, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Routine umgeschaltet';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadRoutines();
+                })
+                .catch(err => {
+                    addChatMessage('System', 'Fehler beim Umschalten');
+                });
+        }
+
+        function deleteRoutine(id) {
+            if (!confirm('Routine wirklich löschen?')) return;
+            fetch(`/api/routines/delete/${id}`, { method: 'DELETE' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Routine gelöscht';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadRoutines();
+                })
+                .catch(err => {
+                    addChatMessage('System', 'Fehler beim Löschen');
+                });
+        }
+
+        function parseRoutineCommand() {
+            const input = document.getElementById('routineCommandInput').value.trim();
+            if (!input) { addChatMessage('System', 'Bitte einen Befehl eingeben.'); return; }
+            let rest = input.toLowerCase().startsWith('routine ') ? input.slice(8).trim() : input;
+            let parts = rest.split('|').map(p => p.trim());
+            let aktionen = parts.slice(1).filter(a => a.length > 0);
+            let beforePipe = parts[0];
+            let wochentage = [];
+            let name, trigger, trigger_wert;
+            let wochentageMatch = beforePipe.match(/wochentage\s+([\w\s,]+)/i);
+            if (wochentageMatch) {
+                let wochentagStr = wochentageMatch[1].trim();
+                wochentage = wochentagStr.split(/[\s,]+/).map(w => w.slice(0,2).toLowerCase()).filter(w => ['mo','di','mi','do','fr','sa','so'].includes(w));
+                beforePipe = beforePipe.replace(/wochentage\s+[\w\s,]+/i, '').trim();
+            }
+            let triggerMatch = beforePipe.match(/(zeit|sprache)\s+(.+)/i);
+            if (triggerMatch) {
+                trigger = triggerMatch[1].toLowerCase();
+                trigger_wert = triggerMatch[2].trim();
+                name = beforePipe.replace(/(zeit|sprache)\s+.+/, '').trim();
+            } else {
+                name = beforePipe.trim();
+                trigger = 'sprache';
+                trigger_wert = name;
+            }
+            document.getElementById('routineName').value = name || '';
+            document.getElementById('routineTrigger').value = trigger;
+            document.getElementById('routineTriggerWert').value = trigger_wert || '';
+            document.getElementById('routineAktionen').value = aktionen.join(' | ');
+            document.querySelectorAll('.wochentag').forEach(cb => {
+                cb.checked = wochentage.includes(cb.value);
+            });
+            addChatMessage('System', 'Befehl geparst – Felder wurden befüllt.');
+        }
+
+        function addRoutine() {
+            const name = document.getElementById('routineName').value.trim();
+            const trigger = document.getElementById('routineTrigger').value;
+            const trigger_wert = document.getElementById('routineTriggerWert').value.trim();
+            const aktionen_raw = document.getElementById('routineAktionen').value.trim();
+            const aktionen = aktionen_raw.split('|').map(s => s.trim()).filter(s => s);
+            const wochentage = [];
+            document.querySelectorAll('.wochentag:checked').forEach(cb => wochentage.push(cb.value));
+            if (!name || !trigger_wert || aktionen.length === 0) {
+                addChatMessage('System', 'Name, Trigger und Aktionen erforderlich.');
+                return;
+            }
+            const payload = {
+                name, trigger, trigger_wert, aktionen,
+                wochentage: wochentage.length > 0 ? wochentage : null
+            };
+            fetch('/api/routines/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                const msg = data.antwort || 'Routine hinzugefügt';
+                addChatMessage('Pia', msg);
+                speakText(msg);
+                loadRoutines();
+                document.getElementById('routineName').value = '';
+                document.getElementById('routineTriggerWert').value = '';
+                document.getElementById('routineAktionen').value = '';
+                document.querySelectorAll('.wochentag:checked').forEach(cb => cb.checked = false);
+                document.getElementById('routineCommandInput').value = '';
+            })
+            .catch(err => {
+                console.error('Fehler:', err);
+                addChatMessage('System', 'Fehler beim Hinzufügen');
+            });
+        }
+
+        // ─── SCHEDULER ───
+        function loadSchedulerStatus() {
+            fetch('/api/routines/scheduler/status')
+                .then(res => res.json())
+                .then(data => {
+                    const badge = document.getElementById('schedulerStatusBadge');
+                    if (data.running) {
+                        badge.textContent = 'läuft';
+                        badge.className = 'badge running';
+                    } else {
+                        badge.textContent = 'gestoppt';
+                        badge.className = 'badge stopped';
+                    }
+                })
+                .catch(() => {
+                    document.getElementById('schedulerStatusBadge').textContent = 'unbekannt';
+                    document.getElementById('schedulerStatusBadge').className = 'badge unknown';
+                });
+        }
+
+        function schedulerStart() {
+            fetch('/api/routines/scheduler/start', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Scheduler gestartet';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadSchedulerStatus();
+                })
+                .catch(err => {
+                    addChatMessage('System', 'Fehler beim Starten');
+                });
+        }
+
+        function schedulerStop() {
+            fetch('/api/routines/scheduler/stop', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.antwort || 'Scheduler gestoppt';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadSchedulerStatus();
+                })
+                .catch(err => {
+                    addChatMessage('System', 'Fehler beim Stoppen');
+                });
+        }
+
+        // ─── PROAKTIV ───
+        function loadSuggestions() {
+            fetch('/api/proactive/suggestions')
+                .then(res => res.json())
+                .then(data => {
+                    const container = document.getElementById('suggestionList');
+                    if (data.suggestions && data.suggestions.length > 0) {
+                        let html = '';
+                        data.suggestions.forEach((s, idx) => {
+                            html += `
+                                <div class="suggestion-item">
+                                    <div class="name">${s.title || 'Vorschlag'}</div>
+                                    <div class="meta">${s.description || ''}</div>
+                                    ${s.items && s.items.length ? `<div class="meta">→ ${s.items.join(', ')}</div>` : ''}
+                                    ${s.action ? `<button class="btn btn-primary" onclick="acceptSuggestion(${idx})">Übernehmen</button>` : ''}
+                                </div>
+                            `;
+                        });
+                        container.innerHTML = html || 'Keine Vorschläge.';
+                    } else {
+                        container.innerHTML = 'Keine Vorschläge – alles im Gleichgewicht!';
+                    }
+                })
+                .catch(err => {
+                    console.error('Fehler:', err);
+                    document.getElementById('suggestionList').innerHTML = 'Fehler beim Laden der Vorschläge.';
+                });
+        }
+
+        function analyzeProactive() {
+            addChatMessage('System', 'Analysiere deine Daten...');
+            fetch('/api/proactive/analyze', { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.result || 'Analyse gestartet.';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    setTimeout(loadSuggestions, 2000);
+                })
+                .catch(err => {
+                    console.error('Fehler:', err);
+                    addChatMessage('System', 'Fehler bei der Analyse.');
+                });
+        }
+
+        function acceptSuggestion(index) {
+            fetch(`/api/proactive/accept/${index}`, { method: 'POST' })
+                .then(res => res.json())
+                .then(data => {
+                    const msg = data.result || 'Vorschlag übernommen!';
+                    addChatMessage('Pia', msg);
+                    speakText(msg);
+                    loadSuggestions();
+                    loadShoppingList();
+                    loadCalendarToday();
+                })
+                .catch(err => {
+                    console.error('Fehler:', err);
+                    addChatMessage('System', 'Fehler beim Übernehmen.');
+                });
+        }
+
+        // ─── MIKROFON ───
+        let isListening = false;
+        function startBrowserSpeech() {
+            const btn = document.getElementById('micBtn');
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                addChatMessage('System', 'Ihr Browser unterstützt keine Spracherkennung.');
+                return;
+            }
+            if (isListening) {
+                isListening = false;
+                btn.textContent = 'Mikrofon';
+                btn.className = 'btn btn-primary';
+                addChatMessage('System', 'Mikrofon gestoppt.');
+                return;
+            }
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'de-DE';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+            recognition.continuous = false;
+            recognition.onstart = function() {
+                isListening = true;
+                btn.textContent = 'Stopp';
+                btn.className = 'btn btn-danger';
+                addChatMessage('System', 'Höre zu... (sprich jetzt)');
+            };
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                addChatMessage('User', transcript);
+                fetch('/api/speech', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: transcript })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.antwort) {
+                        addChatMessage('Pia', data.antwort);
+                        speakText(data.antwort);
+                        updateUserDisplay();
+                    }
+                })
+                .catch(err => {
+                    console.error('Fehler:', err);
+                    addChatMessage('System', 'Fehler bei der Anfrage');
+                });
+            };
+            recognition.onerror = function(event) {
+                console.error('Speech Error:', event.error);
+                let msg = 'Mikrofon-Fehler: ';
+                switch(event.error) {
+                    case 'not-allowed': msg += 'Zugriff verweigert.'; break;
+                    case 'no-speech': msg += 'Keine Sprache erkannt.'; break;
+                    default: msg += event.error;
+                }
+                addChatMessage('System', msg);
+                isListening = false;
+                btn.textContent = 'Mikrofon';
+                btn.className = 'btn btn-primary';
+            };
+            recognition.onend = function() {
+                isListening = false;
+                btn.textContent = 'Mikrofon';
+                btn.className = 'btn btn-primary';
+            };
+            recognition.start();
+        }
+
+        // ─── ALWAYS LISTENING ───
+        let alwaysListening = false;
+        let wakewordRecognition = null;
+
+        function startAlwaysListening() {
+            const btn = document.getElementById('alwaysListeningBtn');
+            if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+                addChatMessage('System', 'Spracherkennung nicht unterstützt.');
+                return;
+            }
+
+            if (alwaysListening) {
+                alwaysListening = false;
+                if (wakewordRecognition) {
+                    wakewordRecognition.stop();
+                    wakewordRecognition = null;
+                }
+                btn.textContent = 'Always Listening';
+                btn.className = 'btn btn-primary';
+                addChatMessage('System', 'Always Listening ausgeschaltet.');
+                return;
+            }
+
+            alwaysListening = true;
+            btn.textContent = 'Always Listening (aktiv)';
+            btn.className = 'btn btn-danger active';
+            addChatMessage('System', 'Always Listening aktiv – sag "Pia" oder "Hey Pia"!');
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'de-DE';
+            recognition.interimResults = true;
+            recognition.continuous = true;
+            recognition.maxAlternatives = 1;
+
+            let lastTranscript = '';
+
+            recognition.onresult = function(event) {
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript.toLowerCase().trim();
+                    if (event.results[i].isFinal) {
+                        if (transcript.includes('hey pia') || transcript.includes('pia')) {
+                            const command = transcript.replace(/hey pia|pia/g, '').trim();
+                            if (command) {
+                                addChatMessage('User', command);
+                                fetch('/api/speech', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ text: command })
+                                })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.antwort) {
+                                        addChatMessage('Pia', data.antwort);
+                                        speakText(data.antwort);
+                                        updateUserDisplay();
+                                    }
+                                })
+                                .catch(err => console.error('Fehler:', err));
+                            } else {
+                                addChatMessage('System', 'Ja?');
+                                speakText('Ja?');
+                            }
+                        }
+                        lastTranscript = '';
+                    } else {
+                        if (transcript !== lastTranscript) {
+                            lastTranscript = transcript;
+                        }
+                    }
+                }
+            };
+
+            recognition.onerror = function(event) {
+                if (event.error === 'not-allowed') {
+                    addChatMessage('System', 'Mikrofon-Zugriff verweigert.');
+                    alwaysListening = false;
+                    btn.textContent = 'Always Listening';
+                    btn.className = 'btn btn-primary';
+                } else {
+                    if (alwaysListening) {
+                        setTimeout(() => {
+                            if (alwaysListening) {
+                                wakewordRecognition = null;
+                                startAlwaysListening();
+                            }
+                        }, 1000);
+                    }
+                }
+            };
+
+            recognition.onend = function() {
+                if (alwaysListening) {
+                    setTimeout(() => {
+                        if (alwaysListening && !wakewordRecognition) {
+                            startAlwaysListening();
+                        }
+                    }, 500);
+                }
+            };
+
+            wakewordRecognition = recognition;
+            recognition.start();
+        }
+
+        // ─── DOCUMENT READY ───
+        document.addEventListener('DOMContentLoaded', function() {
+            const sliders = ['rSlider', 'gSlider', 'bSlider'];
+            sliders.forEach(id => {
+                document.getElementById(id).addEventListener('input', updateColorPreview);
+            });
+            document.getElementById('rgbColorPicker').addEventListener('input', function() {
+                const hex = this.value;
+                const r = parseInt(hex.slice(1,3), 16);
+                const g = parseInt(hex.slice(3,5), 16);
+                const b = parseInt(hex.slice(5,7), 16);
+                document.getElementById('rSlider').value = r;
+                document.getElementById('gSlider').value = g;
+                document.getElementById('bSlider').value = b;
+                updateColorPreview();
+            });
+            document.getElementById('brightnessSlider').addEventListener('input', function() {
+                document.getElementById('brightnessValue').textContent = this.value + '%';
+            });
+            updateColorPreview();
+            renderQuickColors();
+
+            loadDeviceStatus();
+            loadCalendarToday();
+            loadShoppingList();
+            loadRoutines();
+            loadSchedulerStatus();
+            loadSuggestions();
+            loadMonthView();
+            updateUserDisplay();
+
+            setInterval(loadDeviceStatus, 30000);
+            setInterval(loadSchedulerStatus, 30000);
+            setInterval(loadShoppingList, 60000);
+            setInterval(loadSuggestions, 120000);
+
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('calDatum').value = today;
+        });
+    </script>
+</body>
+</html>
